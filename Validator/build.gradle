@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven'
+    id 'war'
+    id "org.akhikhl.gretty" version "2.0.0"
+}
+
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.5.Final'
+    compile group: 'org.glassfish', name: 'javax.el', version: '3.0.1-b08'
+}
