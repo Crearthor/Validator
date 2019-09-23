@@ -1,9 +1,10 @@
 package pl.Validation.walidacjaZadanie;
 
 import javax.validation.constraints.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @DaneCoherent
 public class Dane {
@@ -22,20 +23,24 @@ public class Dane {
 
     @Past
 
-    private LocalDate date;
+    private LocalDateTime date;
 
-    public Dane(@NotEmpty @Size(min=3) @Pattern(regexp = "[A-Z][a-z]+") String name, @Email String email, @NotEmpty @Pattern(regexp = "[0-9]{4}(-[0-9]{2}){2} [0-9]{2}:[0-9]{2}") String textDate, @Past LocalDate date){
+    public Dane(@NotEmpty @Size(min=3) @Pattern(regexp = "[A-Z][a-z]+") String name, @Email String email, @NotEmpty @Pattern(regexp = "[0-9]{4}(-[0-9]{2}){2} [0-9]{2}:[0-9]{2}") String textDate, @Past LocalDateTime date){
         this.name = name;
         this.email = email;
         this.textDate = textDate;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.date = LocalDate.parse(textDate,formatter);
+        try{
+            this.date = LocalDateTime.parse(textDate,formatter);
+        }catch (DateTimeParseException e){
+            this.date = LocalDateTime.of(1,1,1,1,1);
+        }
 
 
     }
 
 
-    public LocalDate getDate(){
+    public LocalDateTime getDate(){
         return date;
     }
 }
